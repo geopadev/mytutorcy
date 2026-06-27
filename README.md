@@ -1,32 +1,57 @@
-# React + TypeScript + Vite
+# MyTutorCY
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+A **Cyprus tutoring marketplace** prototype. Parents search tutors by subject,
+location, level, price and availability; tutors register and create profiles.
 
-Currently, two official plugins are available:
+It's a **static single-page app** with **no backend** — all data (auth, tutors,
+reviews, favourites, enquiries) lives in the browser via `localStorage`, accessed
+only through the data seam in [`src/lib/db.ts`](src/lib/db.ts). Deploys to GitHub Pages.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Tech stack
 
-## React Compiler
+- Vite + React 19 + TypeScript
+- Tailwind CSS v4 (`@tailwindcss/vite`)
+- React Router (HashRouter — GitHub Pages has no SPA fallback)
+- react-hook-form + zod for forms
+- lucide-react for icons
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Run locally
 
-## Expanding the Oxlint configuration
-
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
-
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+```bash
+npm install
+npm run dev      # http://localhost:5173
+npm run build    # static build → dist/
+npm run preview  # preview the production build
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+## Demo accounts
+
+| Role   | Email            | Password   |
+| ------ | ---------------- | ---------- |
+| Parent | `parent@demo.cy` | `demo1234` |
+| Tutor  | `tutor@demo.cy`  | `demo1234` |
+
+You can also sign up a new parent account, or register a brand-new tutor via
+**Become a Tutor** — the new profile appears in search immediately.
+
+> ⚠️ Authentication is **cosmetic** (passwords are stored in plain text in
+> `localStorage`). This is fine for a single-machine demo only — never use a real
+> password.
+
+## How the data layer works
+
+Every component reads and writes data **only** through `src/lib/db.ts`. All of its
+functions are `async`, so swapping localStorage for a real database (e.g. Supabase)
+later is a **one-file change** — the function signatures stay identical and no
+component needs to change.
+
+## Notes
+
+- Data is **per browser**. Clearing site data resets the demo to its seeded state.
+- Deploy happens automatically on every push to `main` via GitHub Actions
+  (`.github/workflows/deploy.yml`) — no secrets required.
+
+## Roadmap (not built in this prototype)
+
+Online payments, booking calendar, real tutor verification, video intros,
+AI matching, referral programme, school partnerships, and a mobile app.
