@@ -22,7 +22,7 @@ export default function StarRating({
           const star = (
             <Star
               size={size}
-              className={filled ? 'fill-amber-400 text-amber-400' : 'fill-slate-200 text-slate-200'}
+              className={filled ? 'fill-accent-400 text-accent-400' : 'fill-slate-200 text-slate-200'}
             />
           )
           return interactive ? (
