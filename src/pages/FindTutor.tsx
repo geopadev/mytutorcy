@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
-import { SlidersHorizontal, SearchX } from 'lucide-react'
 import type { Tutor } from '../lib/db'
 import { getTutors } from '../lib/db'
 import Filters, { PRICE_MAX, type FilterState } from '../components/Filters'
 import TutorCard from '../components/TutorCard'
+import { EmptyStateIllustration } from '../components/Illustrations'
 
 function fromParams(sp: URLSearchParams): FilterState {
   return {
@@ -37,7 +37,6 @@ export default function FindTutor() {
   const filters = fromParams(searchParams)
   const [results, setResults] = useState<Tutor[]>([])
   const [loading, setLoading] = useState(true)
-  const [showFilters, setShowFilters] = useState(false)
 
   function update(patch: Partial<FilterState>) {
     setSearchParams(toParams({ ...filters, ...patch }), { replace: true })
@@ -74,49 +73,38 @@ export default function FindTutor() {
   ])
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-8">
+    <div className="mx-auto max-w-6xl px-4 py-8 sm:py-10">
       <div className="mb-6">
-        <h1 className="text-2xl font-bold text-blue-900 sm:text-3xl">Find a tutor</h1>
-        <p className="mt-1 text-slate-500">Browse tutors across Cyprus and online.</p>
+        <h1 className="font-display text-3xl font-bold text-ink">Find a tutor</h1>
+        <p className="mt-1 text-ink-soft">Browse tutors across Cyprus and online.</p>
       </div>
 
-      <button
-        type="button"
-        onClick={() => setShowFilters((s) => !s)}
-        className="mb-4 flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-700 lg:hidden"
-      >
-        <SlidersHorizontal size={16} /> {showFilters ? 'Hide' : 'Show'} filters
-      </button>
+      <Filters value={filters} onChange={update} onReset={reset} />
 
-      <div className="grid gap-6 lg:grid-cols-[280px_1fr]">
-        <aside className={`${showFilters ? 'block' : 'hidden'} lg:block`}>
-          <div className="lg:sticky lg:top-20">
-            <Filters value={filters} onChange={update} onReset={reset} />
-          </div>
-        </aside>
+      <p className="mb-5 mt-6 text-sm font-medium text-ink-soft">
+        {loading ? 'Searching…' : `${results.length} tutor${results.length === 1 ? '' : 's'} found`}
+      </p>
 
-        <div>
-          <p className="mb-4 text-sm text-slate-500">
-            {loading ? 'Searching…' : `${results.length} tutor${results.length === 1 ? '' : 's'} found`}
-          </p>
-
-          {!loading && results.length === 0 ? (
-            <div className="grid place-items-center rounded-2xl border border-dashed border-slate-300 bg-white py-16 text-center">
-              <SearchX size={40} className="text-slate-300" />
-              <p className="mt-3 font-medium text-slate-600">No tutors match your filters</p>
-              <button type="button" onClick={reset} className="mt-2 text-sm font-semibold text-cyan-600 hover:underline">
-                Clear all filters
-              </button>
-            </div>
-          ) : (
-            <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
-              {results.map((t) => (
-                <TutorCard key={t.id} tutor={t} />
-              ))}
-            </div>
-          )}
+      {!loading && results.length === 0 ? (
+        <div className="grid place-items-center rounded-3xl border border-dashed border-slate-300 bg-white py-16 text-center">
+          <EmptyStateIllustration className="h-28 w-32" />
+          <p className="mt-3 font-display font-bold text-ink">No tutors match your filters</p>
+          <p className="mt-1 text-sm text-ink-soft">Try widening your search or clearing a filter.</p>
+          <button
+            type="button"
+            onClick={reset}
+            className="mt-4 rounded-full bg-brand-500 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-brand-600"
+          >
+            Clear all filters
+          </button>
         </div>
-      </div>
+      ) : (
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {results.map((t) => (
+            <TutorCard key={t.id} tutor={t} />
+          ))}
+        </div>
+      )}
     </div>
   )
 }
