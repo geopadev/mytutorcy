@@ -17,15 +17,15 @@ const tutors = [
 function Steps({ title, steps }: { title: string; steps: typeof parents }) {
   return (
     <div>
-      <h2 className="text-xl font-bold text-blue-900">{title}</h2>
+      <h2 className="text-xl font-bold text-ink">{title}</h2>
       <ol className="mt-5 space-y-4">
         {steps.map((s, i) => (
-          <li key={s.title} className="flex gap-4 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
-            <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-cyan-50 text-cyan-600">
+          <li key={s.title} className="flex gap-4 rounded-2xl border border-slate-200 bg-white p-5 shadow-soft">
+            <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-brand-50 text-brand-600">
               <s.icon size={22} />
             </span>
             <div>
-              <p className="font-semibold text-blue-900">
+              <p className="font-semibold text-ink">
                 {i + 1}. {s.title}
               </p>
               <p className="mt-1 text-sm text-slate-500">{s.text}</p>
@@ -45,10 +45,10 @@ export default function HowItWorks() {
         <Steps title="For tutors" steps={tutors} />
       </div>
       <div className="mt-12 flex flex-wrap justify-center gap-3">
-        <Link to="/find" className="rounded-xl bg-cyan-500 px-6 py-3 font-semibold text-white hover:bg-cyan-600">
+        <Link to="/find" className="rounded-xl bg-brand-500 px-6 py-3 font-semibold text-white hover:bg-brand-600">
           Find a Tutor
         </Link>
-        <Link to="/become-a-tutor" className="rounded-xl bg-blue-900 px-6 py-3 font-semibold text-white hover:bg-blue-800">
+        <Link to="/become-a-tutor" className="rounded-xl bg-ink px-6 py-3 font-semibold text-white hover:bg-brand-600">
           Become a Tutor
         </Link>
       </div>

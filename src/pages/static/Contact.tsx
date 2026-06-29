@@ -5,27 +5,27 @@ import PageShell from '../../components/PageShell'
 export default function Contact() {
   const [sent, setSent] = useState(false)
   const inputCls =
-    'w-full rounded-xl border border-slate-200 px-3 py-2.5 text-sm outline-none focus:border-cyan-400 focus:ring-2 focus:ring-cyan-100'
+    'w-full rounded-xl border border-slate-200 px-3 py-2.5 text-sm outline-none focus:border-brand-400 focus:ring-2 focus:ring-brand-100'
 
   return (
     <PageShell title="Contact us" subtitle="Questions, feedback or partnership ideas — we'd love to hear from you.">
       <div className="grid gap-8 md:grid-cols-[1fr_1.4fr]">
         <div className="space-y-4">
           <div className="flex items-start gap-3">
-            <span className="grid h-10 w-10 place-items-center rounded-xl bg-cyan-50 text-cyan-600">
+            <span className="grid h-10 w-10 place-items-center rounded-xl bg-brand-50 text-brand-600">
               <Mail size={18} />
             </span>
             <div>
-              <p className="font-semibold text-blue-900">Email</p>
+              <p className="font-semibold text-ink">Email</p>
               <p className="text-sm text-slate-500">hello@mytutorcy.example</p>
             </div>
           </div>
           <div className="flex items-start gap-3">
-            <span className="grid h-10 w-10 place-items-center rounded-xl bg-cyan-50 text-cyan-600">
+            <span className="grid h-10 w-10 place-items-center rounded-xl bg-brand-50 text-brand-600">
               <MapPin size={18} />
             </span>
             <div>
-              <p className="font-semibold text-blue-900">Based in</p>
+              <p className="font-semibold text-ink">Based in</p>
               <p className="text-sm text-slate-500">Nicosia, Cyprus</p>
             </div>
           </div>
@@ -42,7 +42,7 @@ export default function Contact() {
               e.preventDefault()
               setSent(true)
             }}
-            className="space-y-4 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm"
+            className="space-y-4 rounded-2xl border border-slate-200 bg-white p-6 shadow-soft"
           >
             <div className="grid gap-4 sm:grid-cols-2">
               <input required placeholder="Your name" className={inputCls} />
@@ -51,7 +51,7 @@ export default function Contact() {
             <textarea required rows={4} placeholder="How can we help?" className={inputCls} />
             <button
               type="submit"
-              className="w-full rounded-xl bg-blue-900 px-4 py-2.5 font-semibold text-white transition hover:bg-blue-800"
+              className="w-full rounded-xl bg-ink px-4 py-2.5 font-semibold text-white transition hover:bg-brand-600"
             >
               Send message
             </button>

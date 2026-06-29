@@ -36,7 +36,7 @@ const fullSchema = baseSchema.merge(accountSchema)
 type FormValues = z.infer<typeof fullSchema>
 
 const inputCls =
-  'w-full rounded-xl border border-slate-200 px-3 py-2 text-sm outline-none focus:border-cyan-400 focus:ring-2 focus:ring-cyan-100'
+  'w-full rounded-xl border border-slate-200 px-3 py-2 text-sm outline-none focus:border-brand-400 focus:ring-2 focus:ring-brand-100'
 const labelCls = 'mb-1.5 block text-sm font-medium text-slate-700'
 const errCls = 'mt-1 text-xs text-rose-500'
 
@@ -126,11 +126,11 @@ export default function BecomeTutor() {
   if (isParent) {
     return (
       <div className="mx-auto max-w-2xl px-4 py-20 text-center">
-        <h1 className="text-2xl font-bold text-blue-900">You're signed in as a parent</h1>
+        <h1 className="text-2xl font-bold text-ink">You're signed in as a parent</h1>
         <p className="mt-3 text-slate-500">
           Tutor profiles need a separate tutor account. Sign out first, then register as a tutor.
         </p>
-        <Link to="/account" className="mt-4 inline-block font-semibold text-cyan-600 hover:underline">
+        <Link to="/account" className="mt-4 inline-block font-semibold text-brand-600 hover:underline">
           Go to your account →
         </Link>
       </div>
@@ -140,7 +140,7 @@ export default function BecomeTutor() {
   return (
     <div className="mx-auto max-w-3xl px-4 py-10">
       <div className="text-center">
-        <h1 className="text-2xl font-bold text-blue-900 sm:text-3xl">
+        <h1 className="text-2xl font-bold text-ink sm:text-3xl">
           {isTutor ? 'Edit your tutor profile' : 'Become a tutor'}
         </h1>
         <p className="mt-2 text-slate-500">
@@ -158,8 +158,8 @@ export default function BecomeTutor() {
 
       <form onSubmit={handleSubmit(onSubmit)} className="mt-8 space-y-6">
         {!user && (
-          <fieldset className="space-y-4 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-            <legend className="px-2 text-sm font-semibold text-blue-900">Account</legend>
+          <fieldset className="space-y-4 rounded-2xl border border-slate-200 bg-white p-6 shadow-soft">
+            <legend className="px-2 text-sm font-semibold text-ink">Account</legend>
             <div className="grid gap-4 sm:grid-cols-2">
               <div>
                 <label className={labelCls}>Email</label>
@@ -176,8 +176,8 @@ export default function BecomeTutor() {
           </fieldset>
         )}
 
-        <fieldset className="space-y-4 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-          <legend className="px-2 text-sm font-semibold text-blue-900">About you</legend>
+        <fieldset className="space-y-4 rounded-2xl border border-slate-200 bg-white p-6 shadow-soft">
+          <legend className="px-2 text-sm font-semibold text-ink">About you</legend>
           <div className="grid gap-4 sm:grid-cols-2">
             <div>
               <label className={labelCls}>Full name</label>
@@ -218,15 +218,15 @@ export default function BecomeTutor() {
           </div>
         </fieldset>
 
-        <fieldset className="space-y-4 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-          <legend className="px-2 text-sm font-semibold text-blue-900">Teaching</legend>
+        <fieldset className="space-y-4 rounded-2xl border border-slate-200 bg-white p-6 shadow-soft">
+          <legend className="px-2 text-sm font-semibold text-ink">Teaching</legend>
 
           <div>
             <label className={labelCls}>Subjects</label>
             <div className="flex flex-wrap gap-2">
               {SUBJECTS.map((s) => (
-                <label key={s} className="flex cursor-pointer items-center gap-1.5 rounded-lg border border-slate-200 px-3 py-1.5 text-sm text-slate-700 has-[:checked]:border-cyan-400 has-[:checked]:bg-cyan-50">
-                  <input type="checkbox" value={s} className="accent-cyan-500" {...register('subjects')} />
+                <label key={s} className="flex cursor-pointer items-center gap-1.5 rounded-lg border border-slate-200 px-3 py-1.5 text-sm text-slate-700 has-[:checked]:border-brand-400 has-[:checked]:bg-brand-50">
+                  <input type="checkbox" value={s} className="accent-brand-500" {...register('subjects')} />
                   {s}
                 </label>
               ))}
@@ -238,8 +238,8 @@ export default function BecomeTutor() {
             <label className={labelCls}>Student levels</label>
             <div className="flex flex-wrap gap-2">
               {AGE_GROUPS.map((a) => (
-                <label key={a} className="flex cursor-pointer items-center gap-1.5 rounded-lg border border-slate-200 px-3 py-1.5 text-sm text-slate-700 has-[:checked]:border-cyan-400 has-[:checked]:bg-cyan-50">
-                  <input type="checkbox" value={a} className="accent-cyan-500" {...register('ageGroups')} />
+                <label key={a} className="flex cursor-pointer items-center gap-1.5 rounded-lg border border-slate-200 px-3 py-1.5 text-sm text-slate-700 has-[:checked]:border-brand-400 has-[:checked]:bg-brand-50">
+                  <input type="checkbox" value={a} className="accent-brand-500" {...register('ageGroups')} />
                   {a}
                 </label>
               ))}
@@ -251,8 +251,8 @@ export default function BecomeTutor() {
             <label className={labelCls}>Languages</label>
             <div className="flex flex-wrap gap-2">
               {LANGUAGES.map((l) => (
-                <label key={l} className="flex cursor-pointer items-center gap-1.5 rounded-lg border border-slate-200 px-3 py-1.5 text-sm text-slate-700 has-[:checked]:border-cyan-400 has-[:checked]:bg-cyan-50">
-                  <input type="checkbox" value={l} className="accent-cyan-500" {...register('languages')} />
+                <label key={l} className="flex cursor-pointer items-center gap-1.5 rounded-lg border border-slate-200 px-3 py-1.5 text-sm text-slate-700 has-[:checked]:border-brand-400 has-[:checked]:bg-brand-50">
+                  <input type="checkbox" value={l} className="accent-brand-500" {...register('languages')} />
                   {l}
                 </label>
               ))}
@@ -298,14 +298,14 @@ export default function BecomeTutor() {
           </div>
         </fieldset>
 
-        <div className="rounded-2xl border border-slate-200 bg-white p-4 text-sm text-slate-500 shadow-sm">
-          Profile tier: <span className="font-semibold text-blue-900">Free</span> — all profiles are free at launch.
+        <div className="rounded-2xl border border-slate-200 bg-white p-4 text-sm text-slate-500 shadow-soft">
+          Profile tier: <span className="font-semibold text-ink">Free</span> — all profiles are free at launch.
         </div>
 
         <button
           type="submit"
           disabled={isSubmitting}
-          className="w-full rounded-xl bg-blue-900 px-6 py-3 font-semibold text-white transition hover:bg-blue-800 disabled:opacity-60"
+          className="w-full rounded-xl bg-ink px-6 py-3 font-semibold text-white transition hover:bg-brand-600 disabled:opacity-60"
         >
           {isSubmitting ? 'Saving…' : isTutor ? 'Save profile' : 'Create my profile'}
         </button>

@@ -27,11 +27,11 @@ export default function About() {
 
       <div className="mt-10 grid gap-5 sm:grid-cols-3">
         {values.map((v) => (
-          <div key={v.title} className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-            <span className="grid h-11 w-11 place-items-center rounded-xl bg-cyan-50 text-cyan-600">
+          <div key={v.title} className="rounded-2xl border border-slate-200 bg-white p-6 shadow-soft">
+            <span className="grid h-11 w-11 place-items-center rounded-xl bg-brand-50 text-brand-600">
               <v.icon size={22} />
             </span>
-            <h3 className="mt-4 font-semibold text-blue-900">{v.title}</h3>
+            <h3 className="mt-4 font-semibold text-ink">{v.title}</h3>
             <p className="mt-1.5 text-sm text-slate-500">{v.text}</p>
           </div>
         ))}

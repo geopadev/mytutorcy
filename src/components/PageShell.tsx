@@ -12,10 +12,11 @@ export default function PageShell({
 }) {
   return (
     <div>
-      <div className="bg-gradient-to-b from-blue-900 to-blue-800 text-white">
-        <div className="mx-auto max-w-4xl px-4 py-12 text-center">
-          <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">{title}</h1>
-          {subtitle && <p className="mx-auto mt-3 max-w-2xl text-blue-100">{subtitle}</p>}
+      <div className="relative overflow-hidden bg-gradient-to-b from-brand-50 to-white">
+        <div className="pointer-events-none absolute -right-20 -top-20 h-64 w-64 rounded-full bg-brand-100/50 blur-2xl" />
+        <div className="relative mx-auto max-w-4xl px-4 py-14 text-center sm:py-16">
+          <h1 className="font-display text-3xl font-extrabold tracking-tight text-ink sm:text-4xl">{title}</h1>
+          {subtitle && <p className="mx-auto mt-3 max-w-2xl text-lg text-ink-soft">{subtitle}</p>}
         </div>
       </div>
       <div className="mx-auto max-w-4xl px-4 py-12">{children}</div>

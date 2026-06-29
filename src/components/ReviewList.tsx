@@ -15,7 +15,7 @@ export default function ReviewList({ reviews }: { reviews: Review[] }) {
       {reviews.map((r) => (
         <li key={r.id} className="rounded-xl border border-slate-100 bg-slate-50 p-4">
           <div className="flex items-center justify-between">
-            <span className="font-medium text-blue-900">{r.parentName}</span>
+            <span className="font-medium text-ink">{r.parentName}</span>
             <span className="text-xs text-slate-400">{formatDate(r.createdAt)}</span>
           </div>
           <div className="mt-1">

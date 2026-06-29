@@ -29,7 +29,7 @@ export default function Terms() {
       <div className="space-y-6">
         {sections.map((s) => (
           <section key={s.h}>
-            <h2 className="font-semibold text-blue-900">{s.h}</h2>
+            <h2 className="font-semibold text-ink">{s.h}</h2>
             <p className="mt-2 text-sm leading-relaxed text-slate-600">{s.p}</p>
           </section>
         ))}

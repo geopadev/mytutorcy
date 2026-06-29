@@ -18,9 +18,9 @@ import Privacy from './pages/static/Privacy'
 function NotFound() {
   return (
     <div className="mx-auto max-w-xl px-4 py-24 text-center">
-      <p className="text-5xl font-extrabold text-blue-900">404</p>
+      <p className="text-5xl font-extrabold text-ink">404</p>
       <p className="mt-3 text-slate-500">We couldn't find that page.</p>
-      <Link to="/" className="mt-5 inline-block rounded-xl bg-blue-900 px-5 py-2.5 font-semibold text-white hover:bg-blue-800">
+      <Link to="/" className="mt-5 inline-block rounded-xl bg-ink px-5 py-2.5 font-semibold text-white hover:bg-brand-600">
         Back home
       </Link>
     </div>

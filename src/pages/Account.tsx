@@ -16,16 +16,16 @@ function formatDate(iso: string): string {
 }
 
 const statusStyle: Record<Enquiry['status'], string> = {
-  new: 'bg-cyan-50 text-cyan-700',
+  new: 'bg-brand-50 text-brand-700',
   replied: 'bg-green-50 text-green-700',
   closed: 'bg-slate-100 text-slate-500',
 }
 
 function EnquiryCard({ enquiry, who }: { enquiry: Enquiry; who: string }) {
   return (
-    <li className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
+    <li className="rounded-xl border border-slate-200 bg-white p-4 shadow-soft">
       <div className="flex items-center justify-between">
-        <span className="font-medium text-blue-900">{who}</span>
+        <span className="font-medium text-ink">{who}</span>
         <span className={`rounded-full px-2.5 py-0.5 text-xs font-semibold capitalize ${statusStyle[enquiry.status]}`}>
           {enquiry.status}
         </span>
@@ -50,13 +50,13 @@ function ParentAccount({ userId }: { userId: string }) {
   return (
     <div className="space-y-10">
       <section>
-        <h2 className="flex items-center gap-2 text-lg font-bold text-blue-900">
+        <h2 className="flex items-center gap-2 text-lg font-bold text-ink">
           <Heart size={18} className="text-rose-500" /> Saved tutors
         </h2>
         {favs.length === 0 ? (
           <p className="mt-3 text-sm text-slate-500">
             No favourites yet.{' '}
-            <Link to="/find" className="font-semibold text-cyan-600 hover:underline">
+            <Link to="/find" className="font-semibold text-brand-600 hover:underline">
               Find tutors to save →
             </Link>
           </p>
@@ -70,8 +70,8 @@ function ParentAccount({ userId }: { userId: string }) {
       </section>
 
       <section>
-        <h2 className="flex items-center gap-2 text-lg font-bold text-blue-900">
-          <Mail size={18} className="text-cyan-600" /> Your enquiries
+        <h2 className="flex items-center gap-2 text-lg font-bold text-ink">
+          <Mail size={18} className="text-brand-600" /> Your enquiries
         </h2>
         {enquiries.length === 0 ? (
           <p className="mt-3 text-sm text-slate-500">You haven't sent any enquiries yet.</p>
@@ -105,15 +105,15 @@ function TutorAccount({ userId }: { userId: string }) {
   return (
     <div className="space-y-10">
       <section>
-        <h2 className="flex items-center gap-2 text-lg font-bold text-blue-900">
-          <UserCircle size={18} className="text-blue-700" /> Your profile
+        <h2 className="flex items-center gap-2 text-lg font-bold text-ink">
+          <UserCircle size={18} className="text-brand-700" /> Your profile
         </h2>
         {tutor ? (
-          <div className="mt-4 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+          <div className="mt-4 rounded-2xl border border-slate-200 bg-white p-6 shadow-soft">
             <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
               <Avatar name={tutor.fullName} photoUrl={tutor.photoUrl} />
               <div className="flex-1">
-                <p className="font-semibold text-blue-900">{tutor.fullName}</p>
+                <p className="font-semibold text-ink">{tutor.fullName}</p>
                 <p className="text-sm text-slate-500">{tutor.headline}</p>
                 <div className="mt-1 flex items-center gap-3 text-sm text-slate-500">
                   <span>{tutor.city}</span>
@@ -127,13 +127,13 @@ function TutorAccount({ userId }: { userId: string }) {
               <div className="flex gap-2">
                 <Link
                   to="/become-a-tutor"
-                  className="flex items-center gap-1.5 rounded-xl border border-slate-200 px-3 py-2 text-sm font-medium text-slate-700 hover:border-cyan-300"
+                  className="flex items-center gap-1.5 rounded-xl border border-slate-200 px-3 py-2 text-sm font-medium text-slate-700 hover:border-brand-300"
                 >
                   <Pencil size={15} /> Edit
                 </Link>
                 <Link
                   to={`/tutor/${tutor.id}`}
-                  className="flex items-center gap-1.5 rounded-xl bg-blue-900 px-3 py-2 text-sm font-medium text-white hover:bg-blue-800"
+                  className="flex items-center gap-1.5 rounded-xl bg-ink px-3 py-2 text-sm font-medium text-white hover:bg-brand-600"
                 >
                   <ExternalLink size={15} /> View
                 </Link>
@@ -145,7 +145,7 @@ function TutorAccount({ userId }: { userId: string }) {
             <p className="text-sm text-slate-500">You haven't created your tutor profile yet.</p>
             <Link
               to="/become-a-tutor"
-              className="mt-3 inline-block rounded-xl bg-blue-900 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-800"
+              className="mt-3 inline-block rounded-xl bg-ink px-4 py-2 text-sm font-semibold text-white hover:bg-brand-600"
             >
               Create profile
             </Link>
@@ -154,8 +154,8 @@ function TutorAccount({ userId }: { userId: string }) {
       </section>
 
       <section>
-        <h2 className="flex items-center gap-2 text-lg font-bold text-blue-900">
-          <Inbox size={18} className="text-cyan-600" /> Enquiries received
+        <h2 className="flex items-center gap-2 text-lg font-bold text-ink">
+          <Inbox size={18} className="text-brand-600" /> Enquiries received
         </h2>
         {enquiries.length === 0 ? (
           <p className="mt-3 text-sm text-slate-500">No enquiries yet. They'll appear here when parents contact you.</p>
@@ -182,10 +182,10 @@ export default function Account() {
   return (
     <div className="mx-auto max-w-5xl px-4 py-10">
       <div className="mb-8">
-        <p className="text-sm font-medium text-cyan-600">
+        <p className="text-sm font-medium text-brand-600">
           {user.role === 'parent' ? 'Parent account' : 'Tutor account'}
         </p>
-        <h1 className="text-2xl font-bold text-blue-900 sm:text-3xl">Hi, {user.fullName.split(' ')[0]}</h1>
+        <h1 className="text-2xl font-bold text-ink sm:text-3xl">Hi, {user.fullName.split(' ')[0]}</h1>
       </div>
       {user.role === 'parent' ? <ParentAccount userId={user.id} /> : <TutorAccount userId={user.id} />}
     </div>

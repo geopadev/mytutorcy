@@ -34,11 +34,11 @@ export default function FAQ() {
         {faqs.map((f) => (
           <details
             key={f.q}
-            className="group rounded-2xl border border-slate-200 bg-white p-5 shadow-sm [&_summary::-webkit-details-marker]:hidden"
+            className="group rounded-2xl border border-slate-200 bg-white p-5 shadow-soft [&_summary::-webkit-details-marker]:hidden"
           >
-            <summary className="flex cursor-pointer items-center justify-between font-semibold text-blue-900">
+            <summary className="flex cursor-pointer items-center justify-between font-semibold text-ink">
               {f.q}
-              <span className="text-cyan-500 transition group-open:rotate-45">+</span>
+              <span className="text-brand-500 transition group-open:rotate-45">+</span>
             </summary>
             <p className="mt-3 text-sm text-slate-600">{f.a}</p>
           </details>
