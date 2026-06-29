@@ -49,6 +49,13 @@ html {
   scroll-behavior: smooth;
 }
 
+html,
+body {
+  /* Decorative blobs intentionally sit just past the edges; clip any resulting
+     horizontal scroll so the page never wiggles left/right on mobile. */
+  overflow-x: clip;
+}
+
 body {
   background-color: var(--color-surface-muted);
   color: var(--color-ink);
