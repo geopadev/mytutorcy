@@ -45,6 +45,24 @@ functions are `async`, so swapping localStorage for a real database (e.g. Supaba
 later is a **one-file change** — the function signatures stay identical and no
 component needs to change.
 
+## Design & styling
+
+The visual system is token-driven so a restyle is a one-file change:
+
+- **Palette & type tokens** live in [`src/index.css`](src/index.css) as Tailwind v4
+  `@theme` variables — semantic `brand` (teal), `accent` (amber), `ink` (navy),
+  surfaces, soft shadows. Change them there and the whole app follows. Components
+  use the utilities they generate (`bg-brand-500`, `text-ink`, `shadow-soft`,
+  `font-display`, …).
+- **Fonts:** [Poppins](https://fonts.google.com/specimen/Poppins) (headings) and
+  [Inter](https://fonts.google.com/specimen/Inter) (body), loaded from Google Fonts.
+  Both are licensed under the **SIL Open Font License 1.1** — free for commercial use.
+- **Illustrations:** hand-authored in-house flat SVG in
+  [`src/components/Illustrations.tsx`](src/components/Illustrations.tsx) (hero, the
+  three "how it works" steps, and the empty state). Original work — **no third-party
+  license required**.
+- **Icons:** [lucide-react](https://lucide.dev) (ISC license).
+
 ## Notes
 
 - Data is **per browser**. Clearing site data resets the demo to its seeded state.
