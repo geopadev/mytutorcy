@@ -22,12 +22,12 @@ export default function SearchBar() {
   }
 
   const field =
-    'w-full rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-sm text-slate-700 outline-none focus:border-cyan-400 focus:ring-2 focus:ring-cyan-100'
+    'w-full rounded-xl border border-slate-200 bg-white px-3.5 py-3 text-sm text-ink outline-none transition focus:border-brand-400 focus:ring-2 focus:ring-brand-100'
 
   return (
     <form
       onSubmit={submit}
-      className="grid grid-cols-1 gap-2 rounded-2xl bg-white p-3 shadow-lg ring-1 ring-slate-100 sm:grid-cols-2 lg:grid-cols-[1fr_1fr_1fr_1fr_auto]"
+      className="grid grid-cols-1 gap-2 rounded-3xl bg-white p-3 shadow-soft-lg ring-1 ring-slate-100 sm:grid-cols-2 lg:grid-cols-[1fr_1fr_1fr_1fr_auto]"
     >
       <select value={subject} onChange={(e) => setSubject(e.target.value)} className={field} aria-label="Subject">
         <option value="">Subject / lesson</option>
@@ -59,7 +59,7 @@ export default function SearchBar() {
 
       <button
         type="submit"
-        className="flex items-center justify-center gap-2 rounded-xl bg-cyan-500 px-6 py-2.5 font-semibold text-white transition hover:bg-cyan-600"
+        className="flex items-center justify-center gap-2 rounded-xl bg-brand-500 px-7 py-3 font-semibold text-white transition hover:bg-brand-600"
       >
         <Search size={18} /> Search
       </button>
