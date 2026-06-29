@@ -115,7 +115,7 @@ function TutorAccount({ userId }: { userId: string }) {
               <div className="flex-1">
                 <p className="font-semibold text-ink">{tutor.fullName}</p>
                 <p className="text-sm text-slate-500">{tutor.headline}</p>
-                <div className="mt-1 flex items-center gap-3 text-sm text-slate-500">
+                <div className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-slate-500">
                   <span>{tutor.city}</span>
                   <span>·</span>
                   <span>From €{tutor.hourlyPriceEur}/hr</span>
