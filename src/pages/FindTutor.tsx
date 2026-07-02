@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
+import { List, Map as MapIcon } from 'lucide-react'
 import type { Tutor } from '../lib/db'
 import { getTutors } from '../lib/db'
 import Filters, { PRICE_MAX, type FilterState } from '../components/Filters'
 import TutorCard from '../components/TutorCard'
+import TutorMap from '../components/TutorMap'
 import { EmptyStateIllustration } from '../components/Illustrations'
 
 function fromParams(sp: URLSearchParams): FilterState {
@@ -37,6 +39,7 @@ export default function FindTutor() {
   const filters = fromParams(searchParams)
   const [results, setResults] = useState<Tutor[]>([])
   const [loading, setLoading] = useState(true)
+  const [view, setView] = useState<'list' | 'map'>('list')
 
   function update(patch: Partial<FilterState>) {
     setSearchParams(toParams({ ...filters, ...patch }), { replace: true })
@@ -81,9 +84,32 @@ export default function FindTutor() {
 
       <Filters value={filters} onChange={update} onReset={reset} />
 
-      <p className="mb-5 mt-6 text-sm font-medium text-ink-soft">
-        {loading ? 'Searching…' : `${results.length} tutor${results.length === 1 ? '' : 's'} found`}
-      </p>
+      <div className="mb-5 mt-6 flex items-center justify-between gap-3">
+        <p className="text-sm font-medium text-ink-soft">
+          {loading ? 'Searching…' : `${results.length} tutor${results.length === 1 ? '' : 's'} found`}
+        </p>
+
+        <div className="flex gap-1 rounded-full bg-slate-100 p-1" role="group" aria-label="Results view">
+          {(
+            [
+              { key: 'list', label: 'List', Icon: List },
+              { key: 'map', label: 'Map', Icon: MapIcon },
+            ] as const
+          ).map(({ key, label, Icon }) => (
+            <button
+              key={key}
+              type="button"
+              onClick={() => setView(key)}
+              aria-pressed={view === key}
+              className={`flex items-center gap-1.5 rounded-full px-4 py-2 text-sm font-semibold transition ${
+                view === key ? 'bg-ink text-white shadow-soft' : 'text-ink-soft hover:bg-slate-200'
+              }`}
+            >
+              <Icon size={15} /> {label}
+            </button>
+          ))}
+        </div>
+      </div>
 
       {!loading && results.length === 0 ? (
         <div className="grid place-items-center rounded-3xl border border-dashed border-slate-300 bg-white py-16 text-center">
@@ -98,6 +124,8 @@ export default function FindTutor() {
             Clear all filters
           </button>
         </div>
+      ) : view === 'map' ? (
+        <TutorMap tutors={results} />
       ) : (
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {results.map((t) => (
