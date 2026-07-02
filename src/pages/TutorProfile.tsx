@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { lazy, Suspense, useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import {
   BadgeCheck, MapPin, Heart, Send, Flag, CheckCircle2, Globe, Clock, Award,
@@ -6,13 +6,18 @@ import {
 } from 'lucide-react'
 import type { Review, Tutor } from '../lib/db'
 import {
-  getTutor, getReviews, addReview, isFavourite, toggleFavourite, sendEnquiry,
+  getTutor, getReviews, addReview, isFavourite, toggleFavourite, sendEnquiry, getTutorCoords,
 } from '../lib/db'
 import { useAuth } from '../context/AuthContext'
 import { modeLabel } from '../lib/constants'
 import Avatar from '../components/Avatar'
 import StarRating from '../components/StarRating'
 import ReviewList from '../components/ReviewList'
+
+// Lazy: Leaflet only downloads if the visitor actually opens the map.
+const TutorMiniMap = lazy(() =>
+  import('../components/TutorMap').then((m) => ({ default: m.TutorMiniMap })),
+)
 
 function DetailRow({ icon: Icon, label, children }: { icon: typeof Award; label: string; children: React.ReactNode }) {
   return (
@@ -48,6 +53,7 @@ export default function TutorProfile() {
   const [submittingReview, setSubmittingReview] = useState(false)
 
   const [reported, setReported] = useState(false)
+  const [showMap, setShowMap] = useState(false)
 
   useEffect(() => {
     let active = true
@@ -214,6 +220,29 @@ export default function TutorProfile() {
                 {modeLabel(tutor.mode)}
               </DetailRow>
             </div>
+
+            {getTutorCoords(tutor) && (
+              <div className="mt-6 border-t border-slate-100 pt-5">
+                {showMap ? (
+                  <>
+                    <Suspense fallback={<div className="grid h-56 place-items-center rounded-2xl bg-slate-50 text-sm text-slate-400">Loading map…</div>}>
+                      <TutorMiniMap tutor={tutor} />
+                    </Suspense>
+                    <p className="mt-2 flex items-center gap-1.5 text-xs text-slate-500">
+                      <MapPin size={13} className="text-brand-500" /> Approximate area only — not an exact address.
+                    </p>
+                  </>
+                ) : (
+                  <button
+                    type="button"
+                    onClick={() => setShowMap(true)}
+                    className="flex items-center gap-2 rounded-full border border-slate-200 px-4 py-2.5 text-sm font-semibold text-ink transition hover:border-brand-300 hover:bg-brand-50"
+                  >
+                    <MapPin size={16} className="text-brand-500" /> Show on map
+                  </button>
+                )}
+              </div>
+            )}
           </section>
 
           {/* Family bundles (display only) */}
