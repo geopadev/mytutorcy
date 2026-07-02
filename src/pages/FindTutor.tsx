@@ -1,12 +1,14 @@
-import { useEffect, useState } from 'react'
+import { lazy, Suspense, useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { List, Map as MapIcon } from 'lucide-react'
 import type { Tutor } from '../lib/db'
 import { getTutors } from '../lib/db'
 import Filters, { PRICE_MAX, type FilterState } from '../components/Filters'
 import TutorCard from '../components/TutorCard'
-import TutorMap from '../components/TutorMap'
 import { EmptyStateIllustration } from '../components/Illustrations'
+
+// Lazy: Leaflet (~150 kB) only downloads when someone switches to map view.
+const TutorMap = lazy(() => import('../components/TutorMap'))
 
 function fromParams(sp: URLSearchParams): FilterState {
   return {
@@ -125,7 +127,15 @@ export default function FindTutor() {
           </button>
         </div>
       ) : view === 'map' ? (
-        <TutorMap tutors={results} />
+        <Suspense
+          fallback={
+            <div className="grid h-[60vh] min-h-[420px] place-items-center rounded-3xl border border-slate-100 bg-white text-sm text-slate-400 shadow-soft">
+              Loading map…
+            </div>
+          }
+        >
+          <TutorMap tutors={results} />
+        </Suspense>
       ) : (
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {results.map((t) => (
