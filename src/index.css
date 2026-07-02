@@ -70,3 +70,14 @@ h3 {
   font-family: var(--font-display);
   letter-spacing: -0.01em;
 }
+
+/* Leaflet map: match the app's type and rounded look. */
+.leaflet-container {
+  font-family: var(--font-sans);
+}
+.leaflet-popup-content-wrapper {
+  border-radius: 1rem;
+}
+.leaflet-popup-content {
+  margin: 12px 14px;
+}
