@@ -14,6 +14,7 @@ only through the data seam in [`src/lib/db.ts`](src/lib/db.ts). Deploys to GitHu
 - React Router (HashRouter — GitHub Pages has no SPA fallback)
 - react-hook-form + zod for forms
 - lucide-react for icons
+- Leaflet + react-leaflet with OpenStreetMap tiles for the map view (no API key)
 
 ## Run locally
 
@@ -62,6 +63,12 @@ The visual system is token-driven so a restyle is a one-file change:
   three "how it works" steps, and the empty state). Original work — **no third-party
   license required**.
 - **Icons:** [lucide-react](https://lucide.dev) (ISC license).
+- **Map:** [Leaflet](https://leafletjs.com) (BSD-2-Clause) via
+  [react-leaflet](https://react-leaflet.js.org) (Hippocratic License 2.1 — permits
+  commercial use, with ethical-use conditions). Tiles ©
+  [OpenStreetMap](https://www.openstreetmap.org/copyright) contributors (ODbL);
+  the required attribution is shown on the map. Marker pins are in-house inline SVG.
+  Tutor pins are **city-level with a deterministic offset** — never exact addresses.
 
 ## Notes
 
