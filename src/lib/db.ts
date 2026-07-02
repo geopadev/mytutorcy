@@ -31,6 +31,8 @@ export interface Tutor {
   photoUrl: string
   verified: boolean
   rating: number
+  lat?: number               // optional exact coords; most tutors derive city-level coords instead
+  lng?: number
 }
 
 export interface Review { id: string; tutorId: string; parentId: string; parentName: string; rating: number; comment: string; createdAt: string }
@@ -105,6 +107,46 @@ export async function upsertTutor(tutor: Tutor): Promise<Tutor> {
   if (i >= 0) list[i] = tutor; else list.push(tutor)
   write(K.tutors, list)
   return tutor
+}
+
+// ===================== MAP COORDS =====================
+// PRIVACY: tutors are never placed at exact addresses. Pins are city-level with a
+// small deterministic offset so same-city tutors don't stack on one point.
+export const CITY_COORDS: Record<string, { lat: number; lng: number }> = {
+  'nicosia': { lat: 35.1856, lng: 33.3823 },
+  'limassol': { lat: 34.7071, lng: 33.0226 },
+  'larnaca': { lat: 34.9199, lng: 33.6232 },
+  'paphos': { lat: 34.7754, lng: 32.4245 },
+  'famagusta/ayia napa': { lat: 34.9887, lng: 34.0 },
+  'polis chrysochous': { lat: 35.0367, lng: 32.4264 },
+  'kyrenia': { lat: 35.3403, lng: 33.3192 },
+}
+
+// Deterministic 32-bit hash — same tutor id always yields the same jitter.
+// The final avalanche mix matters: similar ids (t2, t3, …) must scatter, not stack.
+function hashId(s: string): number {
+  let h = 5381
+  for (let i = 0; i < s.length; i++) h = ((h << 5) + h + s.charCodeAt(i)) | 0
+  h ^= h >>> 16
+  h = Math.imul(h, 0x85ebca6b)
+  h ^= h >>> 13
+  h = Math.imul(h, 0xc2b2ae35)
+  h ^= h >>> 16
+  return h >>> 0
+}
+
+// Derived at read time, so existing localStorage data and new sign-ups need no migration.
+export function getTutorCoords(tutor: Tutor): { lat: number; lng: number } | null {
+  if (typeof tutor.lat === 'number' && typeof tutor.lng === 'number') return { lat: tutor.lat, lng: tutor.lng }
+  const city = tutor.city.trim().toLowerCase()
+  if (!city) return null
+  const base =
+    CITY_COORDS[city] ??
+    Object.entries(CITY_COORDS).find(([name]) => name.includes(city) || city.includes(name))?.[1]
+  if (!base) return null
+  const h = hashId(tutor.id)
+  const jitter = (bits: number) => (((bits % 1000) / 1000) - 0.5) * 0.02 // ±0.01° ≈ ~1 km
+  return { lat: base.lat + jitter(h & 0xffff), lng: base.lng + jitter(h >>> 16) }
 }
 
 // ===================== REVIEWS =====================
